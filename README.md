@@ -5,5 +5,7 @@ The app pulls data from http://www.futurism.co/ (run by Alex Klokus) and display
 #Key components of the app:
 
 RSS Feed Reader: https://github.com/matshofman/Android-RSS-Reader-Library
+
 Image Loading : Volley (http://developer.android.com/training/volley/index.html)
+
 Notification: Parse.com (the parse.com key will not be published to github)
