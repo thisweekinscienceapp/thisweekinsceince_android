@@ -9,3 +9,10 @@ RSS Feed Reader: https://github.com/matshofman/Android-RSS-Reader-Library
 Image Loading : Volley (http://developer.android.com/training/volley/index.html)
 
 Notification: Parse.com (the parse.com key will not be published to github)
+
+#Coding principles
+
+MVP - try to follow a Model View Presenter architecture for clean code and testability (http://antonioleiva.com/mvp-android/)
+
+Material Design - try to follow the material design guidelines (http://www.google.com/design/spec/material-design/introduction.html)
+
