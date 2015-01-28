@@ -8,6 +8,9 @@ package com.appsforreddit.thisweekinsceince;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
+        import android.widget.ImageView;
+
+        import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link android.app.Fragment} subclass.
@@ -27,14 +30,16 @@ public class WeekFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.temp_layout, container, false);
+
+        View v = inflater.inflate(R.layout.temp_layout, container, false);
+        ImageView mv = (ImageView) v.findViewById(R.id.imageView);
+        Picasso.with(this.getActivity()).load("http://www.futurism.co/wp-content/uploads/2015/01/Science_Jan25th_2015.jpg").into(mv);
+        return v;
     }
 
     @Override
