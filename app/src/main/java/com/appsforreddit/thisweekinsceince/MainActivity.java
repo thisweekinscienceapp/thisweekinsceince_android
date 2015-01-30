@@ -75,6 +75,11 @@ public class MainActivity extends FragmentActivity {
 
             return new RSSFragment();
         }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return "OBJECT " + (position + 1);
+        }
     }
 
 

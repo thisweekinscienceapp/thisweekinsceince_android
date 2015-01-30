@@ -2,19 +2,27 @@
 
 package com.appsforreddit.thisweekinsceince;
 
-        import android.app.Activity;
-        import android.os.Bundle;
-        import android.support.v4.app.Fragment;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.ImageButton;
-        import android.widget.ImageView;
-        import android.widget.TableLayout;
-        import android.widget.TableRow;
-        import android.widget.TextView;
+import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
-        import com.squareup.picasso.Picasso;
+import com.appsforreddit.thisweekinsceince.adapter.WeekListAdapter;
+import com.appsforreddit.thisweekinsceince.data.parse.WeekPost;
+import com.appsforreddit.thisweekinsceince.interactor.DummyWeekListInteractorImpl;
+import com.appsforreddit.thisweekinsceince.interactor.WeekListInteractorImpl;
+import com.appsforreddit.thisweekinsceince.presenter.WeekListPresenter;
+import com.appsforreddit.thisweekinsceince.presenter.WeekListPresenterImpl;
+import com.appsforreddit.thisweekinsceince.view.WeekListView;
+import com.malinskiy.superrecyclerview.SuperRecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link android.app.Fragment} subclass.
@@ -24,8 +32,11 @@ package com.appsforreddit.thisweekinsceince;
  * Use the {@link RSSFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WeekFragment extends Fragment{
+public class WeekFragment extends Fragment implements WeekListView {
 
+    private WeekListPresenter presenter;
+    private SuperRecyclerView recyclerView;
+    private WeekListAdapter adapter;
 
     public WeekFragment() {
         // Required empty public constructor
@@ -39,12 +50,25 @@ public class WeekFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.temp_layout, container, false);
+    }
 
-        View v = inflater.inflate(R.layout.temp_layout, container, false);
-        ImageView mv = (ImageView) v.findViewById(R.id.imageView);
-        Picasso.with(this.getActivity()).load("http://www.futurism.co/wp-content/uploads/2015/01/Science_Jan25th_2015.jpg").into(mv);
-        init(v);
-        return v;
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState){
+        super.onViewCreated(view, savedInstanceState);
+        recyclerView = (SuperRecyclerView) view.findViewById(R.id.list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new WeekListAdapter(new ArrayList<WeekPost>(), getActivity());
+        recyclerView.setAdapter(adapter);
+
+        presenter = new WeekListPresenterImpl(this, new WeekListInteractorImpl());
+        presenter.onRefresh();
+        recyclerView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.onRefresh();
+            }
+        });
     }
 
     @Override
@@ -53,7 +77,7 @@ public class WeekFragment extends Fragment{
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState){
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
 
@@ -62,37 +86,23 @@ public class WeekFragment extends Fragment{
         super.onDetach();
     }
 
-    public void init(View v){
-        int sdk = android.os.Build.VERSION.SDK_INT;
-        TableLayout ll = (TableLayout) v.findViewById(R.id.table);
 
-        TextView test;
-        ImageView img;
-
-        for (int i = 0; i <8; i++) {
-
-            TableRow row= new TableRow(this.getActivity());
-            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
-            row.setLayoutParams(lp);
-            img = new ImageButton(this.getActivity());
-            Picasso.with(this.getActivity()).load("http://www.futurism.co/wp-content/uploads/2015/01/Science_Jan25th_2015.jpg").into(img);
-
-            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                img.setBackgroundDrawable(null);
-            } else {
-                img.setBackground(null);
-            }
-
-            test = new TextView(this.getActivity());
-            test.setText("blah blah blah a bunch of stuff about the image maybe");
-            //row.addView(minusBtn);
-            row.addView(img);
-            row.addView(test);
-
-            //row.addView(addBtn);
-            ll.addView(row,i);
+    @Override
+    public void showWeekList(List<WeekPost> weekPostList) {
+        recyclerView.hideProgress();
+        if (null != adapter){
+            adapter.addAll((ArrayList<WeekPost>) weekPostList);
         }
     }
 
+    @Override
+    public void hideWeekList() {
 
+    }
+
+    @Override
+    public void showError(int errorCode, String reason) {
+        recyclerView.hideProgress();
+        Toast.makeText(getActivity(), "error loading the science", Toast.LENGTH_LONG).show();
+    }
 }
