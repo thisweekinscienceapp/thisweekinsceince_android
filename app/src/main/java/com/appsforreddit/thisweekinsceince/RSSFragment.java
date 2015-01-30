@@ -10,10 +10,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import com.appsforreddit.thisweekinsceince.data.rss.RssFeed;
 import com.appsforreddit.thisweekinsceince.data.rss.RssItem;
 import com.appsforreddit.thisweekinsceince.data.rss.RssReader;
+import com.squareup.picasso.Picasso;
 
 import org.xml.sax.SAXException;
 
@@ -41,7 +47,9 @@ public class RSSFragment extends Fragment implements LoaderManager.LoaderCallbac
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private ArrayList<String> url = new ArrayList<String>();
+    private ArrayList<String> title = new ArrayList<String>();
+    private View v;
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -80,7 +88,11 @@ public class RSSFragment extends Fragment implements LoaderManager.LoaderCallbac
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_rs, container, false);
+        v = inflater.inflate(R.layout.fragment_rs, container, false);
+        //ImageView mv = (ImageView) v.findViewById(R.id.imageView);
+        //Picasso.with(this.getActivity()).load("http://www.futurism.co/wp-content/uploads/2015/01/Science_Jan25th_2015.jpg").into(mv);
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -123,7 +135,10 @@ public class RSSFragment extends Fragment implements LoaderManager.LoaderCallbac
         for (RssItem rssItem : data){
             Log.d("RSS", "rssItem: " + rssItem.getDescription());
             Log.d("RSS Content",""+rssItem.getContent());
+            url.add(rssItem.getContent());
+            title.add(rssItem.getTitle());
         }
+        init(v);
     }
 
     @Override
@@ -144,6 +159,56 @@ public class RSSFragment extends Fragment implements LoaderManager.LoaderCallbac
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+
+
+    public void init(View v) {
+        int sdk = android.os.Build.VERSION.SDK_INT;
+        TableLayout ll = (TableLayout) v.findViewById(R.id.table);
+
+        TextView test;
+        ImageButton img;
+        ImageButton button;
+        TableRow.LayoutParams imgSize = new TableRow.LayoutParams(250, 250);
+        TableRow.LayoutParams upVote = new TableRow.LayoutParams(170, 125);
+        upVote.setMargins(0,60,0,0);
+        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+
+        for (int i = 0; i < 5; i++) {
+
+            TableRow row = new TableRow(this.getActivity());
+
+            row.setLayoutParams(lp);
+
+            button= new ImageButton(this.getActivity());
+            button.setScaleType(ImageView.ScaleType.FIT_XY);
+            button.setLayoutParams(upVote);
+            button.setImageResource(R.drawable.upvote);
+
+            img = new ImageButton(this.getActivity());
+            img.setLayoutParams(imgSize);
+            Picasso.with(this.getActivity()).load(url.get(i)).into(img);
+
+            if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                img.setBackgroundDrawable(null);
+                button.setBackgroundDrawable(null);
+            } else {
+                img.setBackground(null);
+                button.setBackground(null);
+            }
+
+            test = new TextView(this.getActivity());
+            test.setText(title.get(i));
+
+            //row.addView(minusBtn);
+            //
+            row.addView(button);
+            row.addView(img);
+            row.addView(test);
+
+
+            ll.addView(row, i);
+        }
     }
 
 }
