@@ -73,7 +73,7 @@ public class MainActivity extends FragmentActivity {
                 return new WeekFragment();
             }
 
-            return new TempFragment();
+            return new RSSFragment();
         }
 
         @Override
