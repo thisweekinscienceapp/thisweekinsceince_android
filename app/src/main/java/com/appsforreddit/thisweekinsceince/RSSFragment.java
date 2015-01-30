@@ -1,11 +1,11 @@
 package com.appsforreddit.thisweekinsceince;
 
 import android.app.Activity;
-import android.app.LoaderManager;
-import android.content.Loader;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -119,14 +119,14 @@ public class RSSFragment extends Fragment implements LoaderManager.LoaderCallbac
     }
 
     @Override
-    public void onLoadFinished(Loader<List<RssItem>> loader, List<RssItem> data) {
+    public void onLoadFinished(android.support.v4.content.Loader<List<RssItem>> loader, List<RssItem> data) {
         for (RssItem rssItem : data){
             Log.d("RSS", "rssItem: " + rssItem.getDescription());
         }
     }
 
     @Override
-    public void onLoaderReset(Loader<List<RssItem>> loader) {
+    public void onLoaderReset(android.support.v4.content.Loader<List<RssItem>> loader) {
 
     }
 

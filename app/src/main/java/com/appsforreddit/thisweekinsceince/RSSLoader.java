@@ -1,7 +1,7 @@
 package com.appsforreddit.thisweekinsceince;
 
-import android.content.AsyncTaskLoader;
 import android.content.Context;
+import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
 
 import com.appsforreddit.thisweekinsceince.data.rss.RssFeed;
