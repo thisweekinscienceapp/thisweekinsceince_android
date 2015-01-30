@@ -122,6 +122,7 @@ public class RSSFragment extends Fragment implements LoaderManager.LoaderCallbac
     public void onLoadFinished(android.support.v4.content.Loader<List<RssItem>> loader, List<RssItem> data) {
         for (RssItem rssItem : data){
             Log.d("RSS", "rssItem: " + rssItem.getDescription());
+            Log.d("RSS Content",""+rssItem.getContent());
         }
     }
 

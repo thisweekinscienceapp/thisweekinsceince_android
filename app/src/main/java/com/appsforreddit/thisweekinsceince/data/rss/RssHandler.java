@@ -17,6 +17,8 @@ package com.appsforreddit.thisweekinsceince.data.rss;
  */
 
 
+import android.util.Log;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -28,6 +30,7 @@ public class RssHandler extends DefaultHandler {
     private RssFeed rssFeed;
     private RssItem rssItem;
     private StringBuilder stringBuilder;
+    private String test="";
 
     @Override
     public void startDocument() {
@@ -51,6 +54,11 @@ public class RssHandler extends DefaultHandler {
             rssItem = new RssItem();
             rssItem.setFeed(rssFeed);
             rssFeed.addRssItem(rssItem);
+        }
+
+        if(qName.equals("media:content"))
+        {
+           test = attributes.getValue(0);
         }
     }
 
@@ -82,11 +90,19 @@ public class RssHandler extends DefaultHandler {
             // Parse item properties
 
             try {
-                if (qName.equals("content:encoded"))
-                    qName = "content";
-                String methodName = "set" + qName.substring(0, 1).toUpperCase() + qName.substring(1);
-                Method method = rssItem.getClass().getMethod(methodName, String.class);
-                method.invoke(rssItem, stringBuilder.toString());
+
+                    if (qName.equals("media:content"))
+                        qName = "content";
+
+                    String methodName = "set" + qName.substring(0, 1).toUpperCase() + qName.substring(1);
+                    Method method = rssItem.getClass().getMethod(methodName, String.class);
+
+                    if(!qName.equals("content"))
+                    method.invoke(rssItem, stringBuilder.toString());
+                    else
+                        method.invoke(rssItem, test);
+
+
             } catch (SecurityException e) {
             } catch (NoSuchMethodException e) {
             } catch (IllegalArgumentException e) {
