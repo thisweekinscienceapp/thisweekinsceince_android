@@ -1,29 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <com.malinskiy.superrecyclerview.SuperRecyclerView
+        android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/scrollView"
-        android:layout_gravity="center_horizontal">
-        <TableLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/table"
-            android:stretchColumns="2"
-            android:shrinkColumns="2">
-            <!-- everything you already have -->
+        app:recyclerClipToPadding="false"
+        app:recyclerPadding="16dp"
+        app:scrollbarStyle="insideInset" />
 
-
-        </TableLayout>
-    </ScrollView>
-
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/imageView"
-        android:maxHeight="50dp" />
-
-</LinearLayout>
+</RelativeLayout>

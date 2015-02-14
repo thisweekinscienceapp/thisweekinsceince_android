@@ -1,8 +1,8 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/twis_blue</item>
+        <item name="colorPrimaryDark">@color/twis_blue_dark</item>
     </style>
 
 </resources>

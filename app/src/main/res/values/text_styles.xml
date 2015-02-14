@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="text_small">
+        <item name="android:textSize">@dimen/text_small</item>
+    </style>
+
+    <style name="text_medium">
+        <item name="android:textSize">@dimen/text_medium</item>
+    </style>
+
+    <style name="text_large">
+        <item name="android:textSize">@dimen/text_large</item>
+    </style>
+
+    <style name="text_extra_large">
+        <item name="android:textSize">@dimen/text_extra_large</item>
+    </style>
+
+    <style name="text_small.primary">
+        <item name="android:textColor">@color/twis_blue_dark</item>
+    </style>
+
+    <style name="text_small.secondary">
+        <item name="android:textColor">@color/twis_blue</item>
+    </style>
+
+    <style name="text_medium.primary">
+        <item name="android:textColor">@color/twis_blue_dark</item>
+    </style>
+
+    <style name="text_medium.secondary">
+        <item name="android:textColor">@color/twis_blue</item>
+    </style>
+
+    <style name="text_large.primary">
+        <item name="android:textColor">@color/twis_blue_dark</item>
+    </style>
+
+    <style name="text_large.secondary">
+        <item name="android:textColor">@color/twis_blue</item>
+    </style>
+
+    <style name="text_extra_large.primary">
+        <item name="android:textColor">@color/twis_blue_dark</item>
+    </style>
+
+    <style name="text_extra_large.secondary">
+        <item name="android:textColor">@color/twis_blue</item>
+    </style>
+
+</resources>

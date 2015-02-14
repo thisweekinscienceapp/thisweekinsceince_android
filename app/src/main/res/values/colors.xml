@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="twis_blue">#2CACF5</color>
+    <color name="twis_blue_dark">#1A2E3C</color>
+
+</resources>

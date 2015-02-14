@@ -27,6 +27,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'uk.co.deanwild:flowtextview:2.0.2@aar'
     compile 'com.malinskiy:superrecyclerview:1.1.0'
     compile files('src/main/java/picasso-2.4.0.jar')
     compile 'com.android.support:cardview-v7:+'

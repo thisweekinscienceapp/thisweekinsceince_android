@@ -1,24 +1,32 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:padding="4dip"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
     android:gravity="center_horizontal"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="#ffff9ad7">
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Placeholder for mockup"
-        android:id="@+id/textView"
-        android:layout_weight="0"
-        android:background="#ff9ab9ff" />
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/twis_blue" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
+
+        <android.support.v4.view.PagerTitleStrip
+            android:id="@+id/pager_title_strip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:background="@color/twis_blue"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:textColor="@color/white" />
     </android.support.v4.view.ViewPager>
 
 
-</LinearLayout>
+</RelativeLayout>
