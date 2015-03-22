@@ -12,8 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 
+import com.appsforreddit.thisweekinsceince.data.repository.NotificationRepository;
+import com.appsforreddit.thisweekinsceince.data.repository.NotificationRepositoryImpl;
+import com.appsforreddit.thisweekinsceince.interactor.NotificationSettingsInteractor;
+import com.appsforreddit.thisweekinsceince.interactor.NotificationSettingsInteractorImpl;
+import com.appsforreddit.thisweekinsceince.presenter.SettingsPresenter;
+import com.appsforreddit.thisweekinsceince.presenter.SettingsPresenterImpl;
+import com.appsforreddit.thisweekinsceince.view.SettingsView;
 
-public class SettingsActivity extends ActionBarActivity {
+
+public class SettingsActivity extends ActionBarActivity implements SettingsFragment.SettingsFragmentListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,4 +43,11 @@ public class SettingsActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public SettingsPresenter getSettingsPresenter(SettingsView view) {
+        NotificationRepository notificationRepository = new NotificationRepositoryImpl(this);
+        NotificationSettingsInteractor interactor = new NotificationSettingsInteractorImpl(notificationRepository);
+        SettingsPresenter settingsPresenter = new SettingsPresenterImpl(view, interactor);
+        return settingsPresenter;
+    }
 }

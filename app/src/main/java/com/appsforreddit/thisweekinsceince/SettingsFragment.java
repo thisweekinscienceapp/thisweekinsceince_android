@@ -1,15 +1,20 @@
 package com.appsforreddit.thisweekinsceince;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.SwitchCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.appsforreddit.thisweekinsceince.data.NotificationType;
+import com.appsforreddit.thisweekinsceince.presenter.SettingsPresenter;
 import com.appsforreddit.thisweekinsceince.view.SettingsView;
 
 
@@ -18,12 +23,14 @@ import com.appsforreddit.thisweekinsceince.view.SettingsView;
  * Use the {@link SettingsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SettingsFragment extends Fragment implements SettingsView{
+public class SettingsFragment extends Fragment implements SettingsView {
 
     protected TextView tvTitle;
     protected TextView tvError;
     protected TextView tvTWISNotificationsLabel;
     protected SwitchCompat swTWISNotifications;
+    protected SettingsPresenter presenter;
+    protected SettingsFragmentListener listener;
 
     public static SettingsFragment newInstance(String param1, String param2) {
         SettingsFragment fragment = new SettingsFragment();
@@ -47,12 +54,31 @@ public class SettingsFragment extends Fragment implements SettingsView{
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         tvTitle = (TextView) view.findViewById(R.id.tvTitle);
         tvError = (TextView) view.findViewById(R.id.tvError);
         tvTWISNotificationsLabel = (TextView) view.findViewById(R.id.tvTWISNotificationsLabel);
         swTWISNotifications = (SwitchCompat) view.findViewById(R.id.swTWIS);
+        swTWISNotifications.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                presenter.onNotificationsChanged(NotificationType.TWIS, isChecked);
+            }
+        });
+        presenter.onResume();
+
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            this.listener = (SettingsFragmentListener) activity;
+            this.presenter = listener.getSettingsPresenter(this);
+        } catch (ClassCastException e) {
+            Log.e("ClassCastException", "Activity must implement SettingsFragmentListener");
+        }
     }
 
 
@@ -96,5 +122,9 @@ public class SettingsFragment extends Fragment implements SettingsView{
     @Override
     public void hideError() {
         tvError.setVisibility(View.GONE);
+    }
+
+    public interface SettingsFragmentListener {
+        public SettingsPresenter getSettingsPresenter(SettingsView view);
     }
 }
