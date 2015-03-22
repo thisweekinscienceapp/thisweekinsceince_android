@@ -10,5 +10,6 @@ import java.util.List;
 public interface ArticleListView {
     public void showArticles(List<Article> articles);
     public void hideArticles();
+    public void navigate(Article article);
     public void showError(int errorCode, String reason);
 }

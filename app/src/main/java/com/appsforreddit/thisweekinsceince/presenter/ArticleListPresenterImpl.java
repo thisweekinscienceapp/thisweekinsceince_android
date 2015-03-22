@@ -45,7 +45,7 @@ public class ArticleListPresenterImpl implements ArticleListPresenter, ArticleLi
 
     @Override
     public void onArticleClick(Article article) {
-
+        view.navigate(article);
     }
 
     @Override

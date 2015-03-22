@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +25,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class RSSFragment extends Fragment implements ArticleListView, OnMoreListener, SwipeRefreshLayout.OnRefreshListener {
+public class RSSFragment extends Fragment implements ArticleListView, OnMoreListener, SwipeRefreshLayout.OnRefreshListener, ArticleListAdapter.ArticleListAdapterListener {
 
     private ArticleListPresenter presenter;
     private SuperRecyclerView recyclerView;
     private ArticleListAdapter adapter;
+    private RSSFragmentListener listener;
 
     public RSSFragment() {
     }
@@ -51,7 +53,7 @@ public class RSSFragment extends Fragment implements ArticleListView, OnMoreList
         super.onViewCreated(view, savedInstanceState);
         recyclerView = (SuperRecyclerView) view.findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new ArticleListAdapter(new ArrayList<Article>(), getActivity());
+        adapter = new ArticleListAdapter(new ArrayList<Article>(), this, getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setupMoreListener(this, 1);
         recyclerView.setRefreshListener(this);
@@ -61,7 +63,13 @@ public class RSSFragment extends Fragment implements ArticleListView, OnMoreList
 
     @Override
     public void onAttach(Activity activity) {
+
         super.onAttach(activity);
+        try{
+            listener = (RSSFragmentListener) activity;
+        }catch (ClassCastException e){
+            Log.e("ClassCastException", "Activity must implement RSSFragmentListener");
+        }
     }
 
     @Override
@@ -90,6 +98,11 @@ public class RSSFragment extends Fragment implements ArticleListView, OnMoreList
     }
 
     @Override
+    public void navigate(Article article) {
+        listener.navigate(article);
+    }
+
+    @Override
     public void showError(int errorCode, String reason) {
         recyclerView.hideProgress();
         Toast.makeText(getActivity(), "error loading the science", Toast.LENGTH_LONG).show();
@@ -104,5 +117,14 @@ public class RSSFragment extends Fragment implements ArticleListView, OnMoreList
     @Override
     public void onRefresh() {
         presenter.onRefresh();
+    }
+
+    @Override
+    public void onArticleClick(Article article) {
+        presenter.onArticleClick(article);
+    }
+
+    public interface RSSFragmentListener{
+        public void navigate(Article article);
     }
 }

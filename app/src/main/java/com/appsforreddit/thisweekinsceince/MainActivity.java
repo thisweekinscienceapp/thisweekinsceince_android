@@ -1,5 +1,6 @@
 package com.appsforreddit.thisweekinsceince;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -10,9 +11,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.appsforreddit.thisweekinsceince.adapter.TWISFragmentPagerAdapter;
+import com.appsforreddit.thisweekinsceince.data.Article;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements RSSFragment.RSSFragmentListener{
     protected FragmentPagerAdapter adapter;
     protected ViewPager mPager;
 
@@ -45,4 +47,9 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
+    @Override
+    public void navigate(Article article) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        startActivity(intent);
+    }
 }
