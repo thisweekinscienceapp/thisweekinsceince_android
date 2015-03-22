@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="parse_key1">ejJeVWG7ijV5QkHGAoztPEywHmqP8HjDBs0RMcGL</string>
+    <string name="parse_key2">x6ZMmTnXgBplnGCGxtIsn60Hpn0UUtjh8AmW5aks</string>
+</resources>
