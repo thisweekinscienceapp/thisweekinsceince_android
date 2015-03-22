@@ -11,4 +11,5 @@
     <dimen name="text_extra_large">24sp</dimen>
     <dimen name="padding_article">8dp</dimen>
     <dimen name="padding_control_small">16dp</dimen>
+    <dimen name="padding_article">8dp</dimen>
 </resources>

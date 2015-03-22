@@ -9,5 +9,6 @@
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="this_week_in_science_published">This Week in Science is published</string>
     <string name="notifications_control_title">Notify me when</string>
+    <string name="title_activity_detail">DetailActivity</string>
 
 </resources>
