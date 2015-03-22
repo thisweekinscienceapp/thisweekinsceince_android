@@ -16,6 +16,14 @@
         android:padding="@dimen/padding_control_small"
         android:text="@string/notifications_control_title" />
 
+    <TextView
+        android:id="@+id/tvError"
+        style="@style/text_large.secondary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,15 +33,17 @@
 
 
         <TextView
+            android:id="@+id/tvTWISNotificationsLabel"
             style="@style/text_medium.secondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/this_week_in_science_published" />
 
         <android.support.v7.widget.SwitchCompat
-            android:layout_alignParentRight="true"
+            android:id="@+id/swTWIS"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true" />
 
     </RelativeLayout>
 
