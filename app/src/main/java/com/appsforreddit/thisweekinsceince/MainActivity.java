@@ -2,7 +2,6 @@ package com.appsforreddit.thisweekinsceince;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
@@ -41,9 +40,15 @@ public class MainActivity extends ActionBarActivity implements RSSFragment.RSSFr
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            launchSettings();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void launchSettings() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 
 
